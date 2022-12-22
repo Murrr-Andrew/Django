@@ -5,3 +5,4 @@
 # python3 manage.py migrate
 # python3 manage.py runserver
 # -m pip freeze > requirements.txt
+# python3 manage.py shell
