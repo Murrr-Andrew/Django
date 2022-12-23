@@ -35,19 +35,26 @@
     <div class="row">
         {% for item in news %}
         <div class="col-md-12">
-          <div class="card mb-3">
-            <div class="card-header">
-                Category: {{ item.category.title }}
+            <div class="card mb-3">
+                <div class="card-header">
+                    Category: {{ item.category.title }}
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        {% if item.photo %}
+                        <img src="{{ item.photo.url }}" alt="{{ item.title }}">
+                        {% endif %}
+                        <div class="media-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text">{{ item.content|safe|truncatewords:50 }}</p>
+                            <a href="#" class="btn btn-primary">Read more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ item.created_at|date:"Y-m-d H:i:s" }}
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">{{ item.content }}</p>
-                <a href="#" class="btn btn-primary">Read more</a>
-            </div>
-            <div class="card-footer text-muted">
-                {{ item.created_at|date:"Y-m-d H:i:s" }}
-            </div>
-        </div>
         </div>
         {% endfor %}
     </div>
