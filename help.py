@@ -1,3 +1,8 @@
+# =========================================
+# Git settings update
+# git config user.email "myemail@gmail.com"
+# git config user.email
+
 # Commands for work
 # python3 -m venv venv -> installing virtual environment
 
