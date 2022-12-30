@@ -1,0 +1,6 @@
+:root {
+    --primary-font-family: sans-serif;
+}
+.font-family-primary {
+    font-family: var(--primary-font-family);
+}
