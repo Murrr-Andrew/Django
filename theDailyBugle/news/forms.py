@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 import re
 
 
-
 class NewsForm(forms.ModelForm):
 
     class Meta:
@@ -17,6 +16,10 @@ class NewsForm(forms.ModelForm):
         }
 
     def clean_title(self):
+        """
+        Creation of custom validator for any fields.
+        Method name should start with 'clean_FIELDNAME', and only works with cleaned_data['FIELDNAME']
+        """
         title = self.cleaned_data['title']
 
         if re.match(r'\d', title):
