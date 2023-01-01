@@ -15,27 +15,13 @@ Add news
 
     {{ form.non_field.errors }}
 
-    <div class="mb-3">
-        {{ form.title.errors }}
-        <label for="{{ form.title.id_for_label }}" class="form-label">Title:</label>
-        {{ form.title }}
+    {% for field in form %}
+    <div class="form-group mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field.errors }}
+        {{ field }}
     </div>
-
-    <div class="mb-3">
-        {{ form.content.errors }}
-        <label for="{{ form.content.id_for_label }}" class="form-label">Content:</label>
-        {{ form.content }}
-    </div>
-
-    <div class="mb-3 form-check">
-        {{ form.is_published }}
-        <label class="form-check-label" for="{{ form.is_published.id_for_label }}">Published:</label>
-    </div>
-
-    <div class="mb-3">
-        <label for="{{ form.category.id_for_label }}" class="form-label">Category:</label>
-        {{ form.category }}
-    </div>
+    {% endfor %}
 
     <button type="submit" class="btn btn-primary btn-block">Add news</button>
 </form>

@@ -12,6 +12,8 @@
 # -m pip freeze > requirements.txt
 
 # python3 manage.py runserver
+# sudo lsof -t -i tcp:8000 | xargs kill -9
+
 # python3 manage.py shell
 # python3 manage.py makemigrations
 # python3 manage.py migrate
