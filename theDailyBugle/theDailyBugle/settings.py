@@ -80,6 +80,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+
+        # === MYSQL CONNECTION EXAMPLE ==========
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'django',
+        # 'USER': 'django-master',
+        # 'PASSWORD': 'django-password',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '8889'
     }
 }
 

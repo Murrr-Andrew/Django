@@ -1,16 +1,16 @@
-# =========================================
-# Git settings update
+# === GIT =======================================
 # git config user.email "myemail@gmail.com"
 # git config user.email
 
-# Commands for work
+# === VENV ======================================
 # python3 -m venv venv -> installing virtual environment
-
 # source venv/bin/activate -> activating virtual environment
 # deactivate -> deactivate virtual environment
 
-# -m pip freeze > requirements.txt
+# === REQUIREMENTS ==============================
+# pip3 freeze > requirements.txt
 
+# === MANAGE.PY =================================
 # python3 manage.py runserver
 # sudo lsof -t -i tcp:8000 | xargs kill -9
 
@@ -18,7 +18,11 @@
 # python3 manage.py makemigrations
 # python3 manage.py migrate
 
+# python3 manage.py createsuperuser (andrewmurko)
 
-# =========================================
-# Before deploy
-# python manage.py collectstatic
+# === MYSQL =====================================
+# brew install mysql
+# pip3 install mysqlclient
+
+# === DEPLOY ====================================
+# python3 manage.py collectstatic
