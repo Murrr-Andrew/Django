@@ -31,4 +31,25 @@
 # News.objects.filter(pk__in=[1, 2, 3])
 
 # === Lesson 3 ======
+# News.objects.first()
+
+# News.objects.last()
+
+# News.objects.order_by('pk').first()
+
+# News.objects.latest('updated_at')
+
+# News.objects.earliest('updated_at')
+
+# Passing a queryset to second query call
+# cats = Category.objects.filter(pk__in=[1, 3])
+# News.objects.filter(category__in=cats)
+
+# cat1 = Category.objects.get(pk=1)
+# cat1.news_set.exists()
+# cat1.news_set.count()
+
+# news = News.objects.get(pk=1)
+# news.get_next_by_created_at()
+# news.get_previous_by_created_at()
 
