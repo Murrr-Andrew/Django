@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import News, Category
 from .forms import NewsForm
 
@@ -63,13 +63,11 @@ class ViewNews(DetailView):
     # pk_url_kwarg = 'news_id'
 
 
-def add_news(request):
-    if request.method == 'POST':
-        form = NewsForm(request.POST)
-        if form.is_valid():
-            news = form.save()
-            return redirect(to=news)
-    else:
-        form = NewsForm()
+class CreateNews(CreateView):
+    """
+    Needs to connect form_class to FormClass
+    """
+    form_class = NewsForm
+    template_name = 'news/add_news.html'
 
-    return render(request, 'news/add_news.html', {'form': form})
+    # success_url = 'url to redirect after success form submit' or will use get_absolute_url()
