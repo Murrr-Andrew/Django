@@ -29,15 +29,25 @@ class HomeNews(ListView):
         return News.objects.filter(is_published=True)
 
 
-def get_category(request, category_id):
-    news = News.objects.filter(category_id=category_id)
-    category = Category.objects.get(pk=category_id)
-    context = {
-        'news': news,
-        'category': category
-    }
+class NewsByCategory(ListView):
+    model = News
+    template_name = 'news/home_news_list.html'
+    context_object_name = 'news'
 
-    return render(request, 'news/category.html', context=context)
+    # If category does not exists - show 404 error (Default True) - to show empty data (500 error)
+    allow_empty = False
+
+    def get_context_data(self, **kwargs):
+        # Get all the context that was in it before
+        context = super(NewsByCategory, self).get_context_data(**kwargs)
+        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+
+        return context
+
+    def get_queryset(self):
+        # By default returns the whole list of data, we can modify the queryset
+        # Param from url is stored in 'self'. Example self.kwargs['category_id'] (check urls.py for the param)
+        return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
 
 
 def view_news(request, news_id):
