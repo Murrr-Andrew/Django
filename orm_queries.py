@@ -1,4 +1,5 @@
 # === Django ORM queries ======
+# https://docs.djangoproject.com/en/4.1/ref/models/querysets/
 
 # === Lesson 1 ======
 # from news.models import News, Category
@@ -18,3 +19,16 @@
 # cat3.get_news.all()
 
 # === Lesson 2 ======
+# https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
+
+# <field_name>__<filter_name>
+# News.objects.filter(pk__gt=1) => pk Greater then 1
+
+# News.objects.filter(pk__gte=1) => pk Greater than or equal to
+
+# News.objects.filter(title__contains='Happy')
+
+# News.objects.filter(pk__in=[1, 2, 3])
+
+# === Lesson 3 ======
+
