@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import News, Category
 from .forms import NewsForm
 
@@ -50,13 +50,17 @@ class NewsByCategory(ListView):
         return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
 
 
-def view_news(request, news_id):
-    news_item = get_object_or_404(News, pk=news_id)
-    context = {
-        'news_item': news_item
-    }
+class ViewNews(DetailView):
+    model = News
+    context_object_name = 'news_item'
 
-    return render(request, 'news/view_news.html', context=context)
+    # Default 'modelName_detail' => 'news_detail'
+    # Or we can specify which template to use
+    # template_name = 'news/news_detail.html'
+
+    # Default 'pk' param should be in urls.py on path string
+    # Or we can specify which param to use a 'pk'
+    # pk_url_kwarg = 'news_id'
 
 
 def add_news(request):
