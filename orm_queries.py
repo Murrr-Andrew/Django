@@ -1,7 +1,7 @@
-# === Django ORM queries ======
+# === Django ORM queries ============================================
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/
 
-# === Lesson 1 ======
+# === Lesson 1 ======================================================
 # from news.models import News, Category
 
 # News.objects.all()
@@ -18,7 +18,7 @@
 # Example: category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='get_news')
 # cat3.get_news.all()
 
-# === Lesson 2 ======
+# === Lesson 2 ======================================================
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
 
 # <field_name>__<filter_name>
@@ -30,7 +30,7 @@
 
 # News.objects.filter(pk__in=[1, 2, 3])
 
-# === Lesson 3 ======
+# === Lesson 3 ======================================================
 # News.objects.first()
 
 # News.objects.last()
@@ -52,4 +52,27 @@
 # news = News.objects.get(pk=1)
 # news.get_next_by_created_at()
 # news.get_previous_by_created_at()
+
+# === Lesson 4 ======================================================
+# <field_name_foreign_key>__<field_name_origin_model>
+
+# News.objects.filter(category__title='Myself')
+
+# Category.objects.filter(news__title__contains='Happy')
+
+# .distinct() => unique
+# Category.objects.filter(news__title__contains='Happy').distinct()
+
+# ====== Q ==========================================================
+
+# from django.db.models import Q
+
+# Q - If needs to use 'OR' operator!
+# | - Logical 'OR'
+# ~ - logical 'Not'
+
+# News.objects.filter(Q(pk__in=[1, 2]) | Q(title__contains='Awesome'))
+# News.objects.filter(Q(pk__in=[1, 2]) | Q(title__contains='Awesome') & ~Q(pk__gt=1))
+
+
 
