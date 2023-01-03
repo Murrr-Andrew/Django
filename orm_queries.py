@@ -84,3 +84,26 @@
 # News.objects.aggregate(diff=Min('views') - Max('views')) => {'diff': -176}
 # News.objects.aggregate(Sum('views')) => {'views__sum': 654}
 # News.objects.aggregate(Avg('views')) => {'views__avg': 218.0}
+
+# === Lesson 6 ======================================================
+# .annotate(RULE_FOR_GROUP(resultFieldName='modelName__modelField')) => Like 'Group By'
+# cats = Category.objects.annotate(qty=Count('news'))
+# for item in cats:
+#    print(item.title, item.qty)
+
+# For all categories find the most viewed news in each category
+# cats = Category.objects.annotate(max_views=Max('news__views'))
+# for item in cats:
+#    print(item.title, item.max_views)
+
+# For each category calculate the sum of views in each news
+# cats = Category.objects.annotate(sum_views=Sum('news__views'))
+# for item in cats:
+#    print(item.title, item.sum_views)
+
+# Get only categories which contains news in it (without empty categories)
+# cats = Category.objects.annotate(qty=Count('news')).filter(qty__gt=0)
+# for item in cats:
+#    print(item.title)
+
+
