@@ -163,3 +163,19 @@
 # news = News.objects.annotate(length=Length('title')).all()
 # for item in news:
 #     print(item.title, item.length)
+
+
+# ===================================================================
+# === Lesson 8 === RAW SQL ==========================================
+# ===================================================================
+# news = News.objects.raw('SELECT * FROM news_news')
+# for item in news:
+#     print(item.title, item.views)
+
+
+# Better to pass params and store them with second param as list in .raw(). Use %s for param
+# It will prevent from SQL injection
+
+# news = News.objects.raw('SELECT * FROM news_news WHERE title = %s', ['Happy New 2023 Year!'])
+# for item in news:
+#     print(item.title, item.views)
