@@ -1,7 +1,10 @@
 # === Django ORM queries ============================================
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/
 
+
+# ===================================================================
 # === Lesson 1 ======================================================
+# ===================================================================
 # from news.models import News, Category
 
 # News.objects.all()
@@ -18,7 +21,10 @@
 # Example: category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='get_news')
 # cat3.get_news.all()
 
+
+# ===================================================================
 # === Lesson 2 ======================================================
+# ===================================================================
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
 
 # <field_name>__<filter_name>
@@ -30,7 +36,10 @@
 
 # News.objects.filter(pk__in=[1, 2, 3])
 
+
+# ===================================================================
 # === Lesson 3 ======================================================
+# ===================================================================
 # News.objects.first()
 
 # News.objects.last()
@@ -53,7 +62,10 @@
 # news.get_next_by_created_at()
 # news.get_previous_by_created_at()
 
+
+# ===================================================================
 # === Lesson 4 ======================================================
+# ===================================================================
 # <field_name_foreign_key>__<field_name_origin_model>
 
 # News.objects.filter(category__title='Myself')
@@ -63,7 +75,10 @@
 # .distinct() => unique
 # Category.objects.filter(news__title__contains='Happy').distinct()
 
+
+# ===================================================================
 # ====== Q ==========================================================
+# ===================================================================
 # from django.db.models import Q
 
 # Q - If needs to use 'OR' operator!
@@ -73,7 +88,10 @@
 # News.objects.filter(Q(pk__in=[1, 2]) | Q(title__contains='Awesome'))
 # News.objects.filter(Q(pk__in=[1, 2]) | Q(title__contains='Awesome') & ~Q(pk__gt=1))
 
+
+# ===================================================================
 # === Lesson 5 ======================================================
+# ===================================================================
 # News.objects.all()[:2]
 # News.objects.all()[1:]
 # News.objects.all()[3:5]
@@ -85,7 +103,10 @@
 # News.objects.aggregate(Sum('views')) => {'views__sum': 654}
 # News.objects.aggregate(Avg('views')) => {'views__avg': 218.0}
 
+
+# ===================================================================
 # === Lesson 6 ======================================================
+# ===================================================================
 # .annotate(RULE_FOR_GROUP(resultFieldName='modelName__modelField')) => Like 'Group By'
 # cats = Category.objects.annotate(qty=Count('news'))
 # for item in cats:
@@ -107,3 +128,38 @@
 #    print(item.title)
 
 
+# ===================================================================
+# === Lesson 7 ======================================================
+# ===================================================================
+# .values() => needs if we want only to get certain fields from the db
+# Its like in SQL SELECT title, views from ....
+
+# news1 = News.objects.values('title', 'views').get(pk=1)
+
+# from django.db import connection
+# news = News.objects.values('title', 'views', 'category__title')
+# connection.queries
+
+
+# ===================================================================
+# ====== F ==========================================================
+# ===================================================================
+# Better to user F class when we need to change/retrieve data of fields, instead of directed changes
+# from django.db.models import F
+
+# news1 = News.objects.get(pk=1)
+# news1.views = F('views') + 1
+# news1.save()
+
+# Get all news which in content(field) contains value of the title(field)
+# News.objects.filter(content__icontains=F('title'))
+
+
+# ===================================================================
+# ====== SQL ========================================================
+# ===================================================================
+# from django.db.models.functions import *
+
+# news = News.objects.annotate(length=Length('title')).all()
+# for item in news:
+#     print(item.title, item.length)
