@@ -64,7 +64,6 @@
 # Category.objects.filter(news__title__contains='Happy').distinct()
 
 # ====== Q ==========================================================
-
 # from django.db.models import Q
 
 # Q - If needs to use 'OR' operator!
@@ -74,5 +73,14 @@
 # News.objects.filter(Q(pk__in=[1, 2]) | Q(title__contains='Awesome'))
 # News.objects.filter(Q(pk__in=[1, 2]) | Q(title__contains='Awesome') & ~Q(pk__gt=1))
 
+# === Lesson 5 ======================================================
+# News.objects.all()[:2]
+# News.objects.all()[1:]
+# News.objects.all()[3:5]
 
-
+# from django.db.models import *
+# News.objects.aggregate(Min('views'), Max('views')) => {'views__min': 111, 'views__max': 287}
+# News.objects.aggregate(min_views=Min('views'), max_views=Max('views')) => {'min_views': 111, 'max_views': 287}
+# News.objects.aggregate(diff=Min('views') - Max('views')) => {'diff': -176}
+# News.objects.aggregate(Sum('views')) => {'views__sum': 654}
+# News.objects.aggregate(Avg('views')) => {'views__avg': 218.0}
