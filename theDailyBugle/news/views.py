@@ -1,9 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView
 from .models import News, Category
 from .forms import NewsForm
 
+from .utils import MyMixin
 
-class HomeNews(ListView):
+
+class HomeNews(MyMixin, ListView):
     """
     Creating a ListView class for using class(es) instead of method to render pages
     Needs to specify data for fields:
@@ -16,10 +19,16 @@ class HomeNews(ListView):
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
 
+    # Property from Mixin
+    mixin_prop = 'hello world'
+
     def get_context_data(self, **kwargs):
         # Get all the context that was in it before
         context = super(HomeNews, self).get_context_data(**kwargs)
-        context['title'] = 'News'
+
+        # Calling methods from the MyMixin class which we inherit in the constructor
+        context['title'] = self.get_upper('News')
+        context['mixin_prop'] = self.get_prop()
 
         return context
 
@@ -29,10 +38,13 @@ class HomeNews(ListView):
         return News.objects.filter(is_published=True).select_related('category')
 
 
-class NewsByCategory(ListView):
+class NewsByCategory(MyMixin, ListView):
     model = News
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
+
+    # Property from Mixin
+    mixin_prop = 'hello world'
 
     # If category does not exists - show 404 error (Default True) - to show empty data (500 error)
     allow_empty = False
@@ -40,7 +52,10 @@ class NewsByCategory(ListView):
     def get_context_data(self, **kwargs):
         # Get all the context that was in it before
         context = super(NewsByCategory, self).get_context_data(**kwargs)
-        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+
+        # Calling methods from the MyMixin class which we inherit in the constructor
+        context['title'] = self.get_upper(Category.objects.get(pk=self.kwargs['category_id']).title)
+        context['mixin_prop'] = self.get_prop()
 
         return context
 
@@ -63,11 +78,14 @@ class ViewNews(DetailView):
     # pk_url_kwarg = 'news_id'
 
 
-class CreateNews(CreateView):
+class CreateNews(LoginRequiredMixin, CreateView):
     """
     Needs to connect form_class to FormClass
     """
     form_class = NewsForm
     template_name = 'news/add_news.html'
 
-    # success_url = 'url to redirect after success form submit' or will use get_absolute_url()
+    # success_url = 'url to redirect after success form submit' or will use get_absolute_url() by default
+
+    # Url to redirect if user is not authenticated
+    # login_url = '/admin/'

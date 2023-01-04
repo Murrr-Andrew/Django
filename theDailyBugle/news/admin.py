@@ -11,6 +11,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     list_filter = ('is_published', 'category')
 
+    # Rules for fields while editing single News object
     fields = (
         'id', 'title', 'category', 'content', 'photo',
         'get_photo', 'views', 'created_at', 'updated_at', 'is_published'
