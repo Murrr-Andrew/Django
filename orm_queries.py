@@ -172,7 +172,6 @@
 # for item in news:
 #     print(item.title, item.views)
 
-
 # Better to pass params and store them with second param as list in .raw(). Use %s for param
 # It will prevent from SQL injection
 

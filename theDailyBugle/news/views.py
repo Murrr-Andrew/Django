@@ -25,7 +25,8 @@ class HomeNews(ListView):
 
     def get_queryset(self):
         # By default returns the whole list of data, we can modify the queryset
-        return News.objects.filter(is_published=True)
+        # .select_related() - to add related data to make less SQL requests
+        return News.objects.filter(is_published=True).select_related('category')
 
 
 class NewsByCategory(ListView):
@@ -46,7 +47,7 @@ class NewsByCategory(ListView):
     def get_queryset(self):
         # By default returns the whole list of data, we can modify the queryset
         # Param from url is stored in 'self'. Example self.kwargs['category_id'] (check urls.py for the param)
-        return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+        return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related('category')
 
 
 class ViewNews(DetailView):

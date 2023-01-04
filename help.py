@@ -28,3 +28,6 @@
 
 # === DEPLOY ====================================
 # python3 manage.py collectstatic
+
+# === DEBUG =====================================
+# pip3 install django-debug-toolbar
