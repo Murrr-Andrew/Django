@@ -1,0 +1,26 @@
+#header,
+.module caption,
+.module h2,
+.inline-group h2,
+#nav-sidebar .current-model,
+#nav-sidebar .current-app .section:visited {
+    background: #712cf9;
+    color: #ffffff;
+    font-weight: normal;
+    text-transform: unset;
+}
+#nav-sidebar .current-app .section:visited {
+    font-size: 14px;
+}
+#branding h1,
+#branding h1 a:link,
+#branding h1 a:visited,
+#nav-sidebar .current-model a:link,
+#nav-sidebar .current-model a:visited {
+    color: #ffffff;
+    font-weight: normal;
+}
+div.breadcrumbs {
+    background: #4c0bce;
+    color: #ffffff;
+}
