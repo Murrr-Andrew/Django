@@ -23,15 +23,8 @@
         </div>
         <div class="col-md-8">
             {% block content %}{% endblock %}
-            <nav aria-label="News pagination">
-                <ul class="pagination">
-                    {% for p in page_obj.paginator.page_range %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ p }}">{{ p }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </nav>
+
+            {% include 'inc/_pagination.html' %}
         </div>
     </div>
 </div>
