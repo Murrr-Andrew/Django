@@ -12,6 +12,10 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'add_news' %}">Add news</a></li>
                 {% endif %}
             </ul>
+            <span class="navbar-text">
+                <a href="{% url 'register' %}">Register</a> |
+                <a href="{% url 'login' %}">Login</a>
+            </span>
         </div>
     </div>
 </nav>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+<h1>Register</h1>
+
+<form action="{% url 'register' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block">Register</button>
+</form>
+
+{% endblock %}

@@ -22,6 +22,8 @@
             {% block sidebar %}{% endblock %}
         </div>
         <div class="col-md-8">
+            {% include 'inc/_messages.html' %}
+
             {% block content %}{% endblock %}
 
             {% include 'inc/_pagination.html' %}

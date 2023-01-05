@@ -1,11 +1,34 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 from .models import News, Category
 
 from .forms import NewsForm
 
 from .utils import MyMixin
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You successfully registered!')
+            return redirect('login')
+        else:
+            messages.error(request, 'Registration field. Try again!')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'news/register.html', {'form': form})
+
+
+def login(request):
+    return render(request, 'news/login.html')
 
 
 class HomeNews(MyMixin, ListView):
