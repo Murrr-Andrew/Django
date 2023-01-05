@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from captcha.fields import CaptchaField, CaptchaTextInput
 
 from .models import News
 
@@ -60,3 +61,4 @@ class ContactForm(forms.Form):
                               widget=forms.TextInput(attrs={'class': 'form-control', 'autocomplete': 'off'}))
     content = forms.CharField(max_length=300, label='Message',
                               widget=forms.Textarea(attrs={'class': 'form-control', 'autocomplete': 'off'}))
+    captcha = CaptchaField()

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
     'ckeditor',
     'ckeditor_uploader',
     'news.apps.NewsConfig',

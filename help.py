@@ -38,3 +38,5 @@
 # === CKEDITOR ==================================
 # pip3 install django-ckeditor
 
+# === Captcha ===================================
+# pip3 install django-simple-captcha
