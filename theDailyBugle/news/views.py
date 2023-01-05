@@ -1,3 +1,4 @@
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
@@ -5,7 +6,7 @@ from django.contrib import messages
 
 from .models import News, Category
 
-from .forms import NewsForm, UserRegisterFrom
+from .forms import NewsForm, UserRegisterFrom, UserLoginForm
 
 from .utils import MyMixin
 
@@ -15,19 +16,43 @@ def register(request):
         form = UserRegisterFrom(request.POST)
 
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, 'You successfully registered!')
-            return redirect('login')
+            return redirect('home')
         else:
             messages.error(request, 'Registration field. Try again!')
     else:
         form = UserRegisterFrom()
 
-    return render(request, 'news/register.html', {'form': form})
+    context = {
+        'form': form
+    }
+
+    return render(request, 'news/register.html', context=context)
 
 
-def login(request):
-    return render(request, 'news/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect(to='home')
+    else:
+        form = UserLoginForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'news/login.html', context=context)
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 class HomeNews(MyMixin, ListView):
