@@ -64,7 +64,7 @@ def contact(request):
 
         if form.is_valid():
             mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
-                             EMAIL_HOST_USER, ['EMAIL_WHERE_TO_SEND'], fail_silently=True)
+                             EMAIL_HOST_USER, [EMAIL_WHERE_TO_SEND], fail_silently=True)
 
             if mail:
                 messages.success(request, 'Email sent!')

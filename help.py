@@ -34,3 +34,7 @@
 
 # === FORMS =====================================
 # django-widget-tweaks - package for styling forms
+
+# === CKEDITOR ==================================
+# pip3 install django-ckeditor
+
