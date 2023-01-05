@@ -3,10 +3,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
+from django.core.mail import send_mail
+
+from theDailyBugle.settings import EMAIL_HOST_USER, EMAIL_WHERE_TO_SEND
 
 from .models import News, Category
 
-from .forms import NewsForm, UserRegisterFrom, UserLoginForm
+from .forms import NewsForm, UserRegisterFrom, UserLoginForm, ContactForm
 
 from .utils import MyMixin
 
@@ -53,6 +56,29 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
+                             EMAIL_HOST_USER, ['EMAIL_WHERE_TO_SEND'], fail_silently=True)
+
+            if mail:
+                messages.success(request, 'Email sent!')
+                return redirect('contact')
+            else:
+                messages.error(request, 'Email sent error. Try again!')
+    else:
+        form = ContactForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'news/contact.html', context=context)
 
 
 class HomeNews(MyMixin, ListView):

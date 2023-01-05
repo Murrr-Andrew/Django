@@ -53,3 +53,10 @@ class NewsForm(forms.ModelForm):
             raise ValidationError('The title should not starts with a number')
 
         return title
+
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=150, label='Subject',
+                              widget=forms.TextInput(attrs={'class': 'form-control', 'autocomplete': 'off'}))
+    content = forms.CharField(max_length=300, label='Message',
+                              widget=forms.Textarea(attrs={'class': 'form-control', 'autocomplete': 'off'}))
