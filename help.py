@@ -31,3 +31,6 @@
 
 # === DEBUG =====================================
 # pip3 install django-debug-toolbar
+
+# === FORMS =====================================
+# django-widget-tweaks - package for styling forms

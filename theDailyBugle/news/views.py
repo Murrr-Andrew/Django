@@ -1,19 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 from .models import News, Category
 
-from .forms import NewsForm
+from .forms import NewsForm, UserRegisterFrom
 
 from .utils import MyMixin
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterFrom(request.POST)
 
         if form.is_valid():
             form.save()
@@ -22,7 +21,7 @@ def register(request):
         else:
             messages.error(request, 'Registration field. Try again!')
     else:
-        form = UserCreationForm()
+        form = UserRegisterFrom()
 
     return render(request, 'news/register.html', {'form': form})
 
