@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.views.decorators.cache import cache_page
 
 from theDailyBugle.settings import EMAIL_HOST_USER, EMAIL_WHERE_TO_SEND
 
@@ -14,6 +15,7 @@ from .forms import NewsForm, UserRegisterFrom, UserLoginForm, ContactForm
 from .utils import MyMixin
 
 
+@cache_page(60 * 15)
 def register(request):
     if request.method == 'POST':
         form = UserRegisterFrom(request.POST)
