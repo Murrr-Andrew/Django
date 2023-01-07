@@ -37,6 +37,7 @@ def register(request):
     return render(request, 'news/register.html', context=context)
 
 
+@cache_page(60 * 15)
 def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
@@ -55,6 +56,7 @@ def user_login(request):
     return render(request, 'news/login.html', context=context)
 
 
+@cache_page(60 * 15)
 def user_logout(request):
     logout(request)
     return redirect('login')
